@@ -6,8 +6,8 @@ public class DotScript : MonoBehaviour {
 
     #region Vars
 
-    public Color defaultCol = new Color(1, 1, 1);
-    public Color selectableCol = new Color(2, 2, 2);
+    public Color defaultCol = new Color(0.5f, 0.5f, 0.5f);
+    public Color selectableCol = new Color(1, 1, 1);
     public float bigScale = 2f;
 
     #endregion
