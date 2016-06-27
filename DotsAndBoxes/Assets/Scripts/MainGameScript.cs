@@ -41,6 +41,7 @@ public class MainGameScript : MonoBehaviour
     public static bool First_Dot = true;
     public static GameObject Dot_One;
     public static GameObject Dot_Two;
+    public static float DOT_BASE_SCALE;
 
     //LineVars
     public GameObject linePrefab;
@@ -77,6 +78,7 @@ public class MainGameScript : MonoBehaviour
 		GRID_SIZE = ButtonScript.Selected_Size;
         Box_Use_Array = new int[GRID_SIZE, GRID_SIZE, GRID_SIZE];
 		unclaimedBoxes = GRID_SIZE * GRID_SIZE * GRID_SIZE;
+        DOT_BASE_SCALE = 1 / (float)GRID_SIZE;
         
         InitColors();
         InitGridArrays();

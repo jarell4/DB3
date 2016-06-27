@@ -7,8 +7,8 @@ public class DotScript : MonoBehaviour {
     #region Vars
 
     public Color defaultCol = new Color(1, 1, 1);
-    public float bigScaleMult = (float) 1.2; //can't make these work in later scripts. may be a scoping issue
-    public float startingScale = (1 / (float)MainGameScript.GRID_SIZE); //can't make these work in later scripts. may be a scoping issue
+    public Color selectableCol = new Color(2, 2, 2);
+    public float bigScale = 2f;
 
     #endregion
 
@@ -69,11 +69,12 @@ public class DotScript : MonoBehaviour {
                     int difference = firstDot[0] - secondDot[0];
                     if (Math.Abs(difference) == 1)
                     {
-                        currentDot.transform.localScale = new Vector3(((1 / (float)MainGameScript.GRID_SIZE) * (float)1.5), ((1 / (float)MainGameScript.GRID_SIZE) * (float)1.5), ((1 / (float)MainGameScript.GRID_SIZE) * (float)1.5));
+                        currentDot.transform.localScale = new Vector3 ((MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale));
+                        currentDot.gameObject.GetComponent<MeshRenderer>().material.color = selectableCol;
                     }
                     else
                     {
-                        //make dot unselectable
+                        currentDot.gameObject.GetComponent<SphereCollider>().enabled = false;
                     }
                 }
                 //checks if the dots have the same X and Z values, which means they are on the same Y plane
@@ -83,11 +84,12 @@ public class DotScript : MonoBehaviour {
                     int difference = firstDot[1] - secondDot[1];
                     if (Math.Abs(difference) == 1)
                     {
-                        currentDot.transform.localScale = new Vector3(((1 / (float)MainGameScript.GRID_SIZE) * (float)1.5), ((1 / (float)MainGameScript.GRID_SIZE) * (float)1.5), ((1 / (float)MainGameScript.GRID_SIZE) * (float)1.5));
+                        currentDot.transform.localScale = new Vector3 ((MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale));
+                        currentDot.gameObject.GetComponent<MeshRenderer>().material.color = selectableCol;
                     }
                     else
                     {
-                        //make dot unselectable
+                        currentDot.gameObject.GetComponent<SphereCollider>().enabled = false;
                     }
                 }
                 //checks if the dots have the same X and Y values, which means they are on the same Z plane
@@ -97,11 +99,12 @@ public class DotScript : MonoBehaviour {
                     int difference = firstDot[2] - secondDot[2];
                     if (Math.Abs(difference) == 1)
                     {
-                        currentDot.transform.localScale = new Vector3 (((1 / (float)MainGameScript.GRID_SIZE) * (float)1.5), ((1 / (float)MainGameScript.GRID_SIZE) * (float)1.5), ((1 / (float)MainGameScript.GRID_SIZE) * (float)1.5));
+                        currentDot.transform.localScale = new Vector3 ((MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale));
+                        currentDot.gameObject.GetComponent<MeshRenderer>().material.color = selectableCol;
                     }
                     else
                     {
-                        //make dot unselectable
+                        currentDot.gameObject.GetComponent<SphereCollider>().enabled = false;
                     }
                 }
             }
@@ -176,10 +179,11 @@ public class DotScript : MonoBehaviour {
                 }
             }
             //regardless of whether a valid line could be drawn, dots are reset, and player must select new first dot
-            MainGameScript.Dot_One.gameObject.GetComponent<MeshRenderer>().material.color = defaultCol;
             foreach (GameObject currentDot in MainGameScript.Grid_Dots)
             {
-                currentDot.transform.localScale = new Vector3 ((1 / (float)MainGameScript.GRID_SIZE), (1 / (float)MainGameScript.GRID_SIZE), (1 / (float)MainGameScript.GRID_SIZE));
+                currentDot.transform.localScale = new Vector3 ((MainGameScript.DOT_BASE_SCALE), (MainGameScript.DOT_BASE_SCALE), (MainGameScript.DOT_BASE_SCALE));
+                currentDot.gameObject.GetComponent<MeshRenderer>().material.color = defaultCol;
+                currentDot.gameObject.GetComponent<SphereCollider>().enabled = true;
             }
             MainGameScript.First_Dot = true;
         }
