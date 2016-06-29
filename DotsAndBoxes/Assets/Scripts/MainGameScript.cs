@@ -341,10 +341,23 @@ public class MainGameScript : MonoBehaviour
 
     public static void ConfirmLine()
     {
+
+		Debug.Log("Attempting to confirm line: " + currLine.ToString());
+
         char axis = Convert.ToChar(currLine[0]);
-        int x = Convert.ToInt32(currLine[1]);
-        int y = Convert.ToInt32(currLine[2]);
-        int z = Convert.ToInt32(currLine[3]);
+
+		//Left these in just to show debug lines, can delete.
+        int oldX = Convert.ToInt32(currLine[1]);
+		Debug.Log("Passing in: " + Convert.ToInt32(currLine[1]).ToString() + " to update line.");
+        int oldY = Convert.ToInt32(currLine[2]);
+		Debug.Log("Passing in: " + Convert.ToInt32(currLine[2]).ToString() + " to update line.");
+        int oldZ = Convert.ToInt32(currLine[3]);
+		Debug.Log("Passing in: " + Convert.ToInt32(currLine[3]).ToString() + " to update line.");
+
+		//Funtional line values, function to get numeric value of ASCII characters, then force int
+		int x = (int)Char.GetNumericValue(currLine[1]);
+		int y = (int)Char.GetNumericValue(currLine[2]);
+		int z = (int)Char.GetNumericValue(currLine[3]);
 
         if (UpdateLine(axis, x, y, z))
             Debug.Log("Draw line: " + currLine);

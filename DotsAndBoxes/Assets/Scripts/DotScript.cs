@@ -190,7 +190,7 @@ public class DotScript : MonoBehaviour
                     MainGameScript.currLine = ("Z" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                     MainGameScript.DisplayConfirmUI();
                     //if (MainGameScript.UpdateLine('Z', firstDot[0], firstDot[1], firstDot[2]))
-                        //Debug.Log("Draw line: " + 'Z' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                       //Debug.Log("Draw line: " + 'Z' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                 }
                 else if (difference == 1)
                 {
