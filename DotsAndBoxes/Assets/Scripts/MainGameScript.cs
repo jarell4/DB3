@@ -9,6 +9,7 @@ public class MainGameScript : MonoBehaviour
     #region Vars
 	//UIVars
 	public GameObject[] endGameUI;
+    public GameObject[] confirmUI;
 
     //OrganizeVars
     public GameObject cubeParent;
@@ -52,6 +53,7 @@ public class MainGameScript : MonoBehaviour
     public static GameObject[, ,] Grid_LinesX;
     public static GameObject[, ,] Grid_LinesY;
     public static GameObject[, ,] Grid_LinesZ;
+    public static string currLine;
 
     //BoxVars
     public GameObject boxPrefab;
@@ -60,7 +62,6 @@ public class MainGameScript : MonoBehaviour
     public float boxInitY = 0;
     public float boxInitZ = 0;
     public static GameObject[,,] Grid_Boxes;
-
     #endregion
 
     #region Unity Methods
@@ -332,6 +333,23 @@ public class MainGameScript : MonoBehaviour
     #endregion
 
     #region Public Methods
+    public static void DisplayConfirmUI()
+    {
+        foreach (GameObject go in GameObject.Find("mainGameHandler").GetComponent<MainGameScript>().confirmUI)
+            go.GetComponent<Image>().enabled = true;
+    }
+
+    public static void ConfirmLine()
+    {
+        char axis = Convert.ToChar(currLine[0]);
+        int x = Convert.ToInt32(currLine[1]);
+        int y = Convert.ToInt32(currLine[2]);
+        int z = Convert.ToInt32(currLine[3]);
+
+        if (UpdateLine(axis, x, y, z))
+            Debug.Log("Draw line: " + currLine);
+    }
+
 	public static bool UpdateLine(char objType, int i, int j, int k)
     {
 		GameObject drawnLine = null;
@@ -380,6 +398,18 @@ public class MainGameScript : MonoBehaviour
 			BG_Index = 0;
 		
 		Main_Cam.backgroundColor = BG_Colors[BG_Index];
+    }
+
+    //Called by DotScipt to reset the dots
+    public static void ResetDots()
+    {
+        foreach (GameObject currentDot in Grid_Dots)
+        {
+            currentDot.transform.localScale = new Vector3((DOT_BASE_SCALE), (DOT_BASE_SCALE), (DOT_BASE_SCALE));
+            currentDot.gameObject.GetComponent<MeshRenderer>().material.color = DotScript.defaultCol;
+            currentDot.gameObject.GetComponent<SphereCollider>().enabled = true;
+        }
+        First_Dot = true;
     }
     #endregion
 }

@@ -75,8 +75,24 @@ public class ButtonScript : MonoBehaviour
 		Application.Quit();
 	}
 
-	//Called by return button in various menus
-	public void onMainMenuClick()
+    //Called by confirm button in game
+    public void onConfirmClick()
+    {
+        MainGameScript.ConfirmLine();
+        foreach (GameObject go in GameObject.Find("mainGameHandler").GetComponent<MainGameScript>().confirmUI)
+            go.GetComponent<Image>().enabled = false;
+    }
+
+    //Called by cancel button in game
+    public void onCancelClick()
+    {
+        MainGameScript.ResetDots();
+        foreach (GameObject go in GameObject.Find("mainGameHandler").GetComponent<MainGameScript>().confirmUI)
+            go.GetComponent<Image>().enabled = false;
+    }
+
+    //Called by return button in various menus
+    public void onMainMenuClick()
 	{
 		SceneManager.LoadScene(mainMenuLvl);
 	}

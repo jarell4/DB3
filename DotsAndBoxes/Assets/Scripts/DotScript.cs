@@ -2,12 +2,13 @@
 using System;
 using System.Collections;
 
-public class DotScript : MonoBehaviour {
+public class DotScript : MonoBehaviour
+{
 
     #region Vars
 
-    public Color defaultCol = new Color(0.5f, 0.5f, 0.5f);
-    public Color selectableCol = new Color(1, 1, 1);
+    public static Color defaultCol = new Color(0.5f, 0.5f, 0.5f);
+    public static Color selectableCol = new Color(1, 1, 1);
     public float bigScale = 2f;
 
     #endregion
@@ -16,7 +17,7 @@ public class DotScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-		this.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        this.gameObject.GetComponent<MeshRenderer>().enabled = true;
         this.gameObject.GetComponent<MeshRenderer>().material.color = defaultCol;
     }
 
@@ -69,7 +70,7 @@ public class DotScript : MonoBehaviour {
                     int difference = firstDot[0] - secondDot[0];
                     if (Math.Abs(difference) == 1)
                     {
-                        currentDot.transform.localScale = new Vector3 ((MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale));
+                        currentDot.transform.localScale = new Vector3((MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale));
                         currentDot.gameObject.GetComponent<MeshRenderer>().material.color = selectableCol;
                     }
                     else
@@ -84,7 +85,7 @@ public class DotScript : MonoBehaviour {
                     int difference = firstDot[1] - secondDot[1];
                     if (Math.Abs(difference) == 1)
                     {
-                        currentDot.transform.localScale = new Vector3 ((MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale));
+                        currentDot.transform.localScale = new Vector3((MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale));
                         currentDot.gameObject.GetComponent<MeshRenderer>().material.color = selectableCol;
                     }
                     else
@@ -99,13 +100,18 @@ public class DotScript : MonoBehaviour {
                     int difference = firstDot[2] - secondDot[2];
                     if (Math.Abs(difference) == 1)
                     {
-                        currentDot.transform.localScale = new Vector3 ((MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale));
+                        currentDot.transform.localScale = new Vector3((MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale), (MainGameScript.DOT_BASE_SCALE * bigScale));
                         currentDot.gameObject.GetComponent<MeshRenderer>().material.color = selectableCol;
                     }
                     else
                     {
                         currentDot.gameObject.GetComponent<SphereCollider>().enabled = false;
                     }
+                }
+                //catches the rest of the dots
+                else
+                {
+                    currentDot.gameObject.GetComponent<SphereCollider>().enabled = false;
                 }
             }
         }
@@ -115,6 +121,10 @@ public class DotScript : MonoBehaviour {
         {
             //save second dot in main script
             MainGameScript.Dot_Two = this.gameObject;
+
+            //color second dot the current player's color, so user knows it was clicked
+            this.gameObject.GetComponent<MeshRenderer>().material.color =
+                MainGameScript._Players[Convert.ToInt32(MainGameScript.Player_2_Turn)];
 
             //save the names of two last dots from main script
             string firstDotName = MainGameScript.Dot_One.name;
@@ -137,13 +147,17 @@ public class DotScript : MonoBehaviour {
                 int difference = firstDot[0] - secondDot[0];
                 if (difference == -1)
                 {
-                    if (MainGameScript.UpdateLine('X', firstDot[0], firstDot[1], firstDot[2]))
-                        Debug.Log("Draw line: " + 'X' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                    MainGameScript.currLine = ("X" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                    MainGameScript.DisplayConfirmUI();
+                    //if (MainGameScript.UpdateLine('X', firstDot[0], firstDot[1], firstDot[2]))
+                        //Debug.Log("Draw line: " + 'X' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                 }
                 else if (difference == 1)
                 {
-                    if (MainGameScript.UpdateLine('X', secondDot[0], secondDot[1], secondDot[2]))
-                        Debug.Log("Draw line: " + 'X' + secondDotName[1] + secondDotName[2] + secondDotName[3]);
+                    MainGameScript.currLine = ("X" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
+                    MainGameScript.DisplayConfirmUI();
+                    //if (MainGameScript.UpdateLine('X', secondDot[0], secondDot[1], secondDot[2]))
+                        //Debug.Log("Draw line: " + 'X' + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                 }
             }
             //checks if the dots have the same X and Z values, which means they will draw a Y line
@@ -153,13 +167,17 @@ public class DotScript : MonoBehaviour {
                 int difference = firstDot[1] - secondDot[1];
                 if (difference == -1)
                 {
-                    if (MainGameScript.UpdateLine('Y', firstDot[0], firstDot[1], firstDot[2]))
-                        Debug.Log("Draw line: " + 'Y' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                    MainGameScript.currLine = ("Y" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                    MainGameScript.DisplayConfirmUI();
+                    //if (MainGameScript.UpdateLine('Y', firstDot[0], firstDot[1], firstDot[2]))
+                        //Debug.Log("Draw line: " + 'Y' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                 }
                 else if (difference == 1)
                 {
-                    if (MainGameScript.UpdateLine('Y', secondDot[0], secondDot[1], secondDot[2]))
-                        Debug.Log("Draw line: " + 'Y' + secondDotName[1] + secondDotName[2] + secondDotName[3]);
+                    MainGameScript.currLine = ("Y" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
+                    MainGameScript.DisplayConfirmUI();
+                    //if (MainGameScript.UpdateLine('Y', secondDot[0], secondDot[1], secondDot[2]))
+                        //Debug.Log("Draw line: " + 'Y' + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                 }
             }
             //checks if the dots have the same X and Y values, which means they will draw a Z line
@@ -169,25 +187,30 @@ public class DotScript : MonoBehaviour {
                 int difference = firstDot[2] - secondDot[2];
                 if (difference == -1)
                 {
-                    if (MainGameScript.UpdateLine('Z', firstDot[0], firstDot[1], firstDot[2]))
-                        Debug.Log("Draw line: " + 'Z' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                    MainGameScript.currLine = ("Z" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                    MainGameScript.DisplayConfirmUI();
+                    //if (MainGameScript.UpdateLine('Z', firstDot[0], firstDot[1], firstDot[2]))
+                        //Debug.Log("Draw line: " + 'Z' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                 }
                 else if (difference == 1)
                 {
-                    if (MainGameScript.UpdateLine('Z', secondDot[0], secondDot[1], secondDot[2]))
-                        Debug.Log("Draw line: " + 'Z' + secondDotName[1] + secondDotName[2] + secondDotName[3]);
+                    MainGameScript.currLine = ("Z" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
+                    MainGameScript.DisplayConfirmUI();
+                    //if (MainGameScript.UpdateLine('Z', secondDot[0], secondDot[1], secondDot[2]))
+                        //Debug.Log("Draw line: " + 'Z' + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                 }
             }
             //regardless of whether a valid line could be drawn, dots are reset, and player must select new first dot
-            foreach (GameObject currentDot in MainGameScript.Grid_Dots)
-            {
-                currentDot.transform.localScale = new Vector3 ((MainGameScript.DOT_BASE_SCALE), (MainGameScript.DOT_BASE_SCALE), (MainGameScript.DOT_BASE_SCALE));
-                currentDot.gameObject.GetComponent<MeshRenderer>().material.color = defaultCol;
-                currentDot.gameObject.GetComponent<SphereCollider>().enabled = true;
-            }
-            MainGameScript.First_Dot = true;
+            //foreach (GameObject currentDot in MainGameScript.Grid_Dots)
+            //{
+                //currentDot.transform.localScale = new Vector3((MainGameScript.DOT_BASE_SCALE), (MainGameScript.DOT_BASE_SCALE), (MainGameScript.DOT_BASE_SCALE));
+                //currentDot.gameObject.GetComponent<MeshRenderer>().material.color = defaultCol;
+                //currentDot.gameObject.GetComponent<SphereCollider>().enabled = true;
+            //}
+            //MainGameScript.First_Dot = true;
+            
+            
         }
-      }
     }
     #endregion
 
@@ -196,4 +219,4 @@ public class DotScript : MonoBehaviour {
 
     #region Public Methods
     #endregion
-
+}
