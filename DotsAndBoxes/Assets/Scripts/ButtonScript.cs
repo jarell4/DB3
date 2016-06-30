@@ -79,10 +79,10 @@ public class ButtonScript : MonoBehaviour
     public void onConfirmClick()
     {
         MainGameScript.ConfirmLine();
+        MainGameScript.ResetDots();
         foreach (GameObject go in GameObject.Find("mainGameHandler").GetComponent<MainGameScript>().confirmUI)
             go.GetComponent<Image>().enabled = false;
-
-		MainGameScript.ResetDots();
+		
     }
 
     //Called by cancel button in game

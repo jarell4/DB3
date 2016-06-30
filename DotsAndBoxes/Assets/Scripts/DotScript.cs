@@ -7,9 +7,9 @@ public class DotScript : MonoBehaviour
 
     #region Vars
 
-    public static Color defaultCol = new Color(0.5f, 0.5f, 0.5f);
+    public static Color defaultCol = new Color(0f, 0f, 0f);
     public static Color selectableCol = new Color(1, 1, 1);
-    public float bigScale = 2f;
+    public float bigScale = 1.5f;
 
     #endregion
 
@@ -28,7 +28,7 @@ public class DotScript : MonoBehaviour
         if (MainGameScript.First_Dot)
         {
             //play audio
-            AudioScript.PlayAudio("currentDot");
+            AudioScript.PlayAudio("dot");
 
             //save first dot in main script
             MainGameScript.Dot_One = this.gameObject;
@@ -119,6 +119,13 @@ public class DotScript : MonoBehaviour
         //if this is the second dot to be clicked on by user
         else
         {
+            //play audio
+            AudioScript.PlayAudio("dot");
+
+            //loop through and deactivate each dot
+            foreach (GameObject currentDot in MainGameScript.Grid_Dots)
+                currentDot.gameObject.GetComponent<SphereCollider>().enabled = false;
+
             //save second dot in main script
             MainGameScript.Dot_Two = this.gameObject;
 
@@ -149,15 +156,11 @@ public class DotScript : MonoBehaviour
                 {
                     MainGameScript.currLine = ("X" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                     MainGameScript.DisplayConfirmUI();
-                    //if (MainGameScript.UpdateLine('X', firstDot[0], firstDot[1], firstDot[2]))
-                        //Debug.Log("Draw line: " + 'X' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                 }
                 else if (difference == 1)
                 {
                     MainGameScript.currLine = ("X" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                     MainGameScript.DisplayConfirmUI();
-                    //if (MainGameScript.UpdateLine('X', secondDot[0], secondDot[1], secondDot[2]))
-                        //Debug.Log("Draw line: " + 'X' + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                 }
             }
             //checks if the dots have the same X and Z values, which means they will draw a Y line
@@ -169,15 +172,11 @@ public class DotScript : MonoBehaviour
                 {
                     MainGameScript.currLine = ("Y" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                     MainGameScript.DisplayConfirmUI();
-                    //if (MainGameScript.UpdateLine('Y', firstDot[0], firstDot[1], firstDot[2]))
-                        //Debug.Log("Draw line: " + 'Y' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                 }
                 else if (difference == 1)
                 {
                     MainGameScript.currLine = ("Y" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                     MainGameScript.DisplayConfirmUI();
-                    //if (MainGameScript.UpdateLine('Y', secondDot[0], secondDot[1], secondDot[2]))
-                        //Debug.Log("Draw line: " + 'Y' + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                 }
             }
             //checks if the dots have the same X and Y values, which means they will draw a Z line
@@ -189,27 +188,13 @@ public class DotScript : MonoBehaviour
                 {
                     MainGameScript.currLine = ("Z" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                     MainGameScript.DisplayConfirmUI();
-                    //if (MainGameScript.UpdateLine('Z', firstDot[0], firstDot[1], firstDot[2]))
-                       //Debug.Log("Draw line: " + 'Z' + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                 }
                 else if (difference == 1)
                 {
                     MainGameScript.currLine = ("Z" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                     MainGameScript.DisplayConfirmUI();
-                    //if (MainGameScript.UpdateLine('Z', secondDot[0], secondDot[1], secondDot[2]))
-                        //Debug.Log("Draw line: " + 'Z' + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                 }
-            }
-            //regardless of whether a valid line could be drawn, dots are reset, and player must select new first dot
-            //foreach (GameObject currentDot in MainGameScript.Grid_Dots)
-            //{
-                //currentDot.transform.localScale = new Vector3((MainGameScript.DOT_BASE_SCALE), (MainGameScript.DOT_BASE_SCALE), (MainGameScript.DOT_BASE_SCALE));
-                //currentDot.gameObject.GetComponent<MeshRenderer>().material.color = defaultCol;
-                //currentDot.gameObject.GetComponent<SphereCollider>().enabled = true;
-            //}
-            //MainGameScript.First_Dot = true;
-            
-            
+            }            
         }
     }
     #endregion

@@ -346,14 +346,6 @@ public class MainGameScript : MonoBehaviour
 
         char axis = Convert.ToChar(currLine[0]);
 
-		//Left these in just to show debug lines, can delete.
-        int oldX = Convert.ToInt32(currLine[1]);
-		Debug.Log("Passing in: " + Convert.ToInt32(currLine[1]).ToString() + " to update line.");
-        int oldY = Convert.ToInt32(currLine[2]);
-		Debug.Log("Passing in: " + Convert.ToInt32(currLine[2]).ToString() + " to update line.");
-        int oldZ = Convert.ToInt32(currLine[3]);
-		Debug.Log("Passing in: " + Convert.ToInt32(currLine[3]).ToString() + " to update line.");
-
 		//Funtional line values, function to get numeric value of ASCII characters, then force int
 		int x = (int)Char.GetNumericValue(currLine[1]);
 		int y = (int)Char.GetNumericValue(currLine[2]);
@@ -413,7 +405,7 @@ public class MainGameScript : MonoBehaviour
 		Main_Cam.backgroundColor = BG_Colors[BG_Index];
     }
 
-    //Called by DotScipt to reset the dots
+    //Called by DotScript to reset the dots
     public static void ResetDots()
     {
         foreach (GameObject currentDot in Grid_Dots)

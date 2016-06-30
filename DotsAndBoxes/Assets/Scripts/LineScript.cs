@@ -23,7 +23,6 @@ public class LineScript : MonoBehaviour {
 	public static void Draw(char objType, int i, int j, int k)
     {
 		//play audio
-		AudioScript.PlayAudio("dot");
 		AudioScript.PlayAudio("line");
 
         GameObject drawnLine = null;
