@@ -62,8 +62,10 @@ public class ButtonScript : MonoBehaviour
 						Destroy(T.gameObject);
 				}
 			}
-			SceneManager.LoadScene(mainMenuLvl); 
-		}
+			SceneManager.LoadScene(mainMenuLvl);
+            MainGameScript.Player_2_Turn = false;
+            MainGameScript.BG_Index = 0;
+        }
 	}
 
 	#endregion
@@ -97,7 +99,9 @@ public class ButtonScript : MonoBehaviour
     public void onMainMenuClick()
 	{
 		SceneManager.LoadScene(mainMenuLvl);
-	}
+        MainGameScript.Player_2_Turn = false;
+        MainGameScript.BG_Index = 0;
+    }
 
 	//Called by question mark button in start menu
 	public void onHelpClick()
@@ -117,7 +121,7 @@ public class ButtonScript : MonoBehaviour
 		Start_Canvas.enabled = false;
 		Loading_Canvas.enabled = true;
 
-		Selected_Size = (int)Grid_Slider.value + 2;
+		Selected_Size = (int)Grid_Slider.value + 1;
 
 		MainColorScript.P1_Hue = (int)P1_Slider.value * 16;
 		MainColorScript.P2_Hue = (int)P2_Slider.value * 16;
@@ -140,7 +144,7 @@ public class ButtonScript : MonoBehaviour
 	//Called when size slider is moved
 	public void onGridSliderMoved()
 	{
-		int currSizeValue = (int)Grid_Slider.value + 2;
+		int currSizeValue = (int)Grid_Slider.value + 1;
 
 		Transform boxGroup = GameObject.Find("GridSizes").transform;
 

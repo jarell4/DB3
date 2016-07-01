@@ -147,8 +147,14 @@ public class DotScript : MonoBehaviour
                 (int)Char.GetNumericValue(secondDotName[2]),
                 (int)Char.GetNumericValue(secondDotName[3])};
 
+            //checks if the dots are the same dot, deselects the original dot
+            if (firstDot[0] == secondDot[0] && firstDot[1] == secondDot[1] && firstDot[2] == secondDot[2])
+            {
+                MainGameScript.ResetDots();
+            }
+
             //checks if the dots have the same Y and Z values, which means they will draw a X line
-            if (firstDot[1] == secondDot[1] && firstDot[2] == secondDot[2])
+            else if (firstDot[1] == secondDot[1] && firstDot[2] == secondDot[2])
             {
                 //Determines which X line is drawn based on dot's X position relative to one another
                 int difference = firstDot[0] - secondDot[0];
