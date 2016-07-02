@@ -416,5 +416,16 @@ public class MainGameScript : MonoBehaviour
         }
         First_Dot = true;
     }
+
+	//Called on exiting game scene
+	public static void ClearGameObjects()
+	{
+		Transform cubeParent = GameObject.Find("CubeParentEmpty").transform;
+		foreach (Transform childTransforms in cubeParent)
+		{
+			Destroy(childTransforms.gameObject);
+		}
+	}
+
     #endregion
 }

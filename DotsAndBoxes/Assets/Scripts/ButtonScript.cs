@@ -98,6 +98,7 @@ public class ButtonScript : MonoBehaviour
     //Called by return button in various menus
     public void onMainMenuClick()
 	{
+		MainGameScript.ClearGameObjects();
 		SceneManager.LoadScene(mainMenuLvl);
         MainGameScript.Player_2_Turn = false;
         MainGameScript.BG_Index = 0;
