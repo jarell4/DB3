@@ -12,13 +12,15 @@ public class ButtonScript : MonoBehaviour
 	public static Canvas Start_Canvas;
 	public static Canvas Loading_Canvas;
     //LevelVars
-	public static int playLvl = 2;
+
+	public static int mainMenuLvl = 0;
 	public static int tutorialLvl = 1;
-    public static int mainMenuLvl = 0;
+	public static int playLvl = 2;
 	public static int creditsLvl = 3;
+	public static int networkLvl = 4;
 
 	//SizeVar
-	public static int Selected_Size = 1;
+	public static int Selected_Size = 2;
 
     //SliderVars
 	public static Slider Grid_Slider;
@@ -98,6 +100,10 @@ public class ButtonScript : MonoBehaviour
     //Called by return button in various menus
     public void onMainMenuClick()
 	{
+		//in place for network testing, DELETE
+		if(SceneManager.GetActiveScene() == SceneManager.GetSceneAt(networkLvl))
+			NetworkManagerScript.LeaveServer();
+		
 		MainGameScript.ClearGameObjects();
 		SceneManager.LoadScene(mainMenuLvl);
         MainGameScript.Player_2_Turn = false;
@@ -129,6 +135,13 @@ public class ButtonScript : MonoBehaviour
 
 		SceneManager.LoadSceneAsync(playLvl);
 	}
+
+	//Called by network play button in intro menu
+	public void onNetworkPlayClick()
+	{
+		SceneManager.LoadSceneAsync(networkLvl);
+	}
+
 	//Called when hue slider is moved
 	public void onColorSliderMoved()
 	{
