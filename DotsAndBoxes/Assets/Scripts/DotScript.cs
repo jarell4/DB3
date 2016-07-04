@@ -160,12 +160,12 @@ public class DotScript : MonoBehaviour
                 int difference = firstDot[0] - secondDot[0];
                 if (difference == -1)
                 {
-                    MainGameScript.currLine = ("X" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                    MainGameScript._currLine = ("X" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                     MainGameScript.DisplayConfirmUI();
                 }
                 else if (difference == 1)
                 {
-                    MainGameScript.currLine = ("X" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
+                    MainGameScript._currLine = ("X" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                     MainGameScript.DisplayConfirmUI();
                 }
             }
@@ -176,12 +176,12 @@ public class DotScript : MonoBehaviour
                 int difference = firstDot[1] - secondDot[1];
                 if (difference == -1)
                 {
-                    MainGameScript.currLine = ("Y" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                    MainGameScript._currLine = ("Y" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                     MainGameScript.DisplayConfirmUI();
                 }
                 else if (difference == 1)
                 {
-                    MainGameScript.currLine = ("Y" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
+                    MainGameScript._currLine = ("Y" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                     MainGameScript.DisplayConfirmUI();
                 }
             }
@@ -192,12 +192,12 @@ public class DotScript : MonoBehaviour
                 int difference = firstDot[2] - secondDot[2];
                 if (difference == -1)
                 {
-                    MainGameScript.currLine = ("Z" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
+                    MainGameScript._currLine = ("Z" + firstDotName[1] + firstDotName[2] + firstDotName[3]);
                     MainGameScript.DisplayConfirmUI();
                 }
                 else if (difference == 1)
                 {
-                    MainGameScript.currLine = ("Z" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
+                    MainGameScript._currLine = ("Z" + secondDotName[1] + secondDotName[2] + secondDotName[3]);
                     MainGameScript.DisplayConfirmUI();
                 }
             }            

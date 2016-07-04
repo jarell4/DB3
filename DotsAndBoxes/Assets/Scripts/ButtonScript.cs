@@ -66,7 +66,13 @@ public class ButtonScript : MonoBehaviour
             MainGameScript.Player_2_Turn = false;
             MainGameScript.BG_Index = 0;
         }
-	}
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            MainGameScript.CPUDraw(1);
+        }
+
+    }
 
 	#endregion
 

@@ -11,6 +11,9 @@ public class MainGameScript : MonoBehaviour
 	public GameObject[] endGameUI;
     public GameObject[] confirmUI;
 
+    //CPULineDrawVars
+    public static int CPU_Line_Amount;
+
     //OrganizeVars
     public GameObject cubeParent;
 
@@ -53,7 +56,7 @@ public class MainGameScript : MonoBehaviour
     public static GameObject[, ,] Grid_LinesX;
     public static GameObject[, ,] Grid_LinesY;
     public static GameObject[, ,] Grid_LinesZ;
-    public static string currLine;
+    public static string _currLine;
 
     //BoxVars
     public GameObject boxPrefab;
@@ -273,6 +276,185 @@ public class MainGameScript : MonoBehaviour
         }
     }
 
+    //Finds a cube with the lowest amount of lines drawn around it
+    private static bool CPULineDraw()
+    {
+        //finds what the current lowest value is of "box use"
+        int smallest = 12;
+        foreach (int currBoxVal in Box_Use_Array)
+        {
+            if (currBoxVal < smallest)
+                smallest = currBoxVal;
+        }
+
+        //finds the first box with the lowest value and draws a line somewhere around that box
+        for (int i = 0; i < GRID_SIZE; i++)
+        {
+            for (int j = 0; j < GRID_SIZE; j++)
+            {
+                for (int k = 0; k < GRID_SIZE; k++)
+                {
+                    if (Box_Use_Array[i, j, k] == smallest)
+                    {
+                        if (DrawAvailLine(i, i + 1, j, j + 1, k, k + 1))
+                            Debug.Log("DrawAvailLine returned True.");
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    //Find a line that has not yet been drawn given some parameters, draw it
+    private static bool DrawAvailLine(int MinX, int MaxX, int MinY, int MaxY, int MinZ, int MaxZ)
+    {
+        int i, j, k;
+        int rndSeed = new System.Random().Next(0, 3);
+        GameObject drawnLine = null;
+
+        //Loop through X lines, then Y lines, then Z lines
+        if (rndSeed == 0)
+        {
+            for (j = MinY; j <= MaxY; j++)
+            {
+                for (k = MinZ; k <= MaxZ; k++)
+                {
+                    drawnLine = MainGameScript.Grid_LinesX[MinX, j, k];
+                    if (drawnLine.GetComponentsInChildren<MeshRenderer>()[0].enabled == false)
+                    {
+                        Debug.Log("CPU Drawing line: X" + MinX + j + k);
+                        LineScript.Draw('X', MinX, j, k);
+                        return true;
+                    }
+                }
+            }
+
+            for (i = MinX; i <= MaxX; i++)
+            {
+                for (k = MinZ; k <= MaxZ; k++)
+                {
+                    drawnLine = MainGameScript.Grid_LinesY[i, MinY, k];
+                    if (drawnLine.GetComponentsInChildren<MeshRenderer>()[0].enabled == false)
+                    {
+                        Debug.Log("CPU Drawing line: Y" + i + MinY + k);
+                        LineScript.Draw('Y', i, MinY, k);
+                        return true;
+                    }
+                }
+            }
+
+            for (i = MinX; i <= MaxX; i++)
+            {
+                for (j = MinY; j <= MaxY; j++)
+                {
+                    drawnLine = MainGameScript.Grid_LinesZ[i, j, MinZ];
+                    if (drawnLine.GetComponentsInChildren<MeshRenderer>()[0].enabled == false)
+                    {
+                        Debug.Log("CPU Drawing line: Z" + i + j + MinZ);
+                        LineScript.Draw('Z', i, j, MinZ);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        //Loop through Y lines, then Z lines, then X lines
+        else if (rndSeed == 1)
+        {
+            for (i = MinX; i <= MaxX; i++)
+            {
+                for (k = MinZ; k <= MaxZ; k++)
+                {
+                    drawnLine = MainGameScript.Grid_LinesY[i, MinY, k];
+                    if (drawnLine.GetComponentsInChildren<MeshRenderer>()[0].enabled == false)
+                    {
+                        Debug.Log("CPU Drawing line: Y" + i + MinY + k);
+                        LineScript.Draw('Y', i, MinY, k);
+                        return true;
+                    }
+                }
+            }
+
+            for (i = MinX; i <= MaxX; i++)
+            {
+                for (j = MinY; j <= MaxY; j++)
+                {
+                    drawnLine = MainGameScript.Grid_LinesZ[i, j, MinZ];
+                    if (drawnLine.GetComponentsInChildren<MeshRenderer>()[0].enabled == false)
+                    {
+                        Debug.Log("CPU Drawing line: Z" + i + j + MinZ);
+                        LineScript.Draw('Z', i, j, MinZ);
+                        return true;
+                    }
+                }
+            }
+
+            for (j = MinY; j <= MaxY; j++)
+            {
+                for (k = MinZ; k <= MaxZ; k++)
+                {
+                    drawnLine = MainGameScript.Grid_LinesX[MinX, j, k];
+                    if (drawnLine.GetComponentsInChildren<MeshRenderer>()[0].enabled == false)
+                    {
+                        Debug.Log("CPU Drawing line: X" + MinX + j + k);
+                        LineScript.Draw('X', MinX, j, k);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        //Loop through Z lines, then X lines, then Y lines
+        else
+        {
+            for (i = MinX; i <= MaxX; i++)
+            {
+                for (j = MinY; j <= MaxY; j++)
+                {
+                    drawnLine = MainGameScript.Grid_LinesZ[i, j, MinZ];
+                    if (drawnLine.GetComponentsInChildren<MeshRenderer>()[0].enabled == false)
+                    {
+                        Debug.Log("CPU Drawing line: Z" + i + j + MinZ);
+                        LineScript.Draw('Z', i, j, MinZ);
+                        return true;
+                    }
+                }
+            }
+
+            for (j = MinY; j <= MaxY; j++)
+            {
+                for (k = MinZ; k <= MaxZ; k++)
+                {
+                    drawnLine = MainGameScript.Grid_LinesX[MinX, j, k];
+                    if (drawnLine.GetComponentsInChildren<MeshRenderer>()[0].enabled == false)
+                    {
+                        Debug.Log("CPU Drawing line: X" + MinX + j + k);
+                        LineScript.Draw('X', MinX, j, k);
+                        return true;
+                    }
+                }
+            }
+
+            for (i = MinX; i <= MaxX; i++)
+            {
+                for (k = MinZ; k <= MaxZ; k++)
+                {
+                    drawnLine = MainGameScript.Grid_LinesY[i, MinY, k];
+                    if (drawnLine.GetComponentsInChildren<MeshRenderer>()[0].enabled == false)
+                    {
+                        Debug.Log("CPU Drawing line: Y" + i + MinY + k);
+                        LineScript.Draw('Y', i, MinY, k);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
     //Called when a box is drawn, increments the score of the current player
     private static void UpdateScore()
     {
@@ -333,26 +515,38 @@ public class MainGameScript : MonoBehaviour
     #endregion
 
     #region Public Methods
+    //uses the CPULineDraw function as many times as is parameterized
+    public static void CPUDraw(int amount)
+    {
+        for (int i = 0; i < amount;)
+        {
+            if (CPULineDraw())
+                i++;
+        }
+    }
+
+    //displays the confirmUI to allow player to confirm/cancel a dot --> dot selection
     public static void DisplayConfirmUI()
     {
         foreach (GameObject go in GameObject.Find("mainGameHandler").GetComponent<MainGameScript>().confirmUI)
             go.GetComponent<Image>().enabled = true;
     }
 
+    //confirms the line after a player has selected the confirm button
     public static void ConfirmLine()
     {
 
-		Debug.Log("Attempting to confirm line: " + currLine.ToString());
+		Debug.Log("Attempting to confirm line: " + _currLine.ToString());
 
-        char axis = Convert.ToChar(currLine[0]);
+        char axis = Convert.ToChar(_currLine[0]);
 
 		//Funtional line values, function to get numeric value of ASCII characters, then force int
-		int x = (int)Char.GetNumericValue(currLine[1]);
-		int y = (int)Char.GetNumericValue(currLine[2]);
-		int z = (int)Char.GetNumericValue(currLine[3]);
+		int x = (int)Char.GetNumericValue(_currLine[1]);
+		int y = (int)Char.GetNumericValue(_currLine[2]);
+		int z = (int)Char.GetNumericValue(_currLine[3]);
 
         if (UpdateLine(axis, x, y, z))
-            Debug.Log("Draw line: " + currLine);
+            Debug.Log("Draw line: " + _currLine);
     }
 
 	public static bool UpdateLine(char objType, int i, int j, int k)
