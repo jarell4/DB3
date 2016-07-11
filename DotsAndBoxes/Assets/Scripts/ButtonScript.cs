@@ -67,10 +67,10 @@ public class ButtonScript : MonoBehaviour
             MainGameScript.BG_Index = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            MainGameScript.CPUDraw(1);
-        }
+        //if (Input.GetKeyDown(KeyCode.K))
+        //{
+        //    MainGameScript.CPUDraw(1);
+        //}
 
     }
 
@@ -82,6 +82,12 @@ public class ButtonScript : MonoBehaviour
     {
 		Application.Quit();
 	}
+
+    //Called to have CPU draw a line; mainly for testing
+    public void onCPUDrawClick()
+    {
+        MainGameScript.CPUDraw(1);
+    }
 
     //Called by confirm button in game
     public void onConfirmClick()

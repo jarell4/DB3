@@ -297,7 +297,6 @@ public class MainGameScript : MonoBehaviour
                     if (Box_Use_Array[i, j, k] == smallest)
                     {
                         if (DrawAvailLine(i, i + 1, j, j + 1, k, k + 1))
-                            Debug.Log("DrawAvailLine returned True.");
                         return true;
                     }
                 }
@@ -481,7 +480,8 @@ public class MainGameScript : MonoBehaviour
         else
             Debug.Log("Game Over: Tie");
 
-		HideDots();
+        DisableDots();
+        HideDots();
 		HideLines();
 		DisplayEndUI();
     }
@@ -499,6 +499,13 @@ public class MainGameScript : MonoBehaviour
 		foreach(GameObject go in Grid_Dots)
 			go.GetComponent<MeshRenderer>().enabled = false;
 	}
+
+    //Called by EndGame() to disable dot objects from being selected
+    private static void DisableDots()
+    {
+        foreach (GameObject go in Grid_Dots)
+            go.GetComponent<SphereCollider>().enabled = false;
+    }
 
 	//Called by EndGame() to hide line objects on completion
 	private static void HideLines()
