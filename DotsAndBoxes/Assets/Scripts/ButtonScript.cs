@@ -16,6 +16,7 @@ public class ButtonScript : MonoBehaviour
 	public static int tutorialLvl = 1;
     public static int mainMenuLvl = 0;
 	public static int creditsLvl = 3;
+    public static int optionsLvl = 4;
 
 	//SizeVar
 	public static int Selected_Size = 1;
@@ -24,6 +25,7 @@ public class ButtonScript : MonoBehaviour
 	public static Slider Grid_Slider;
 	public static Slider P1_Slider;
 	public static Slider P2_Slider;
+    public static Slider PC_Slider;
     #endregion
 
 	#region Unity Methods
@@ -122,8 +124,14 @@ public class ButtonScript : MonoBehaviour
 		SceneManager.LoadScene(tutorialLvl);
 	}
 
-	//Called by asterisk button in start menu
-	public void onCreditsClick()
+    //Called by gear button (graphic not in yet) in start menu
+    public void onOptionsClick()
+    {
+        SceneManager.LoadScene(optionsLvl);
+    }
+
+    //Called by asterisk button in start menu
+    public void onCreditsClick()
 	{
 		SceneManager.LoadScene(creditsLvl);
 	}
@@ -154,8 +162,17 @@ public class ButtonScript : MonoBehaviour
 		p2Box.color = MainColorScript.HsvToRgb((P2_Slider.value * 16f), 0.9f, 0.7f);
 	}
 
-	//Called when size slider is moved
-	public void onGridSliderMoved()
+    //Called when options menu hue slider is moved
+    public void onOptionsColorSliderMoved()
+    {
+
+        Image pcBox = PC_Slider.transform.FindChild("Box_Image").GetComponent<Image>();
+
+        pcBox.color = MainColorScript.HsvToRgb((PC_Slider.value * 16f), 0.9f, 0.7f);
+    }
+
+    //Called when size slider is moved
+    public void onGridSliderMoved()
 	{
 		int currSizeValue = (int)Grid_Slider.value + 1;
 
