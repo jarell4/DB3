@@ -49,6 +49,7 @@ public class ButtonScript : MonoBehaviour
 
 		P1_Slider = GameObject.Find("P1_Slider").GetComponent<Slider>();
 		P2_Slider = GameObject.Find("P2_Slider").GetComponent<Slider>();
+        PC_Slider = GameObject.Find("PC_Slider").GetComponent<Slider>();
 	}
 
 	void Update()
@@ -169,6 +170,8 @@ public class ButtonScript : MonoBehaviour
         Image pcBox = PC_Slider.transform.FindChild("Box_Image").GetComponent<Image>();
 
         pcBox.color = MainColorScript.HsvToRgb((PC_Slider.value * 16f), 0.9f, 0.7f);
+
+        Debug.Log("Slider moved");
     }
 
     //Called when size slider is moved
